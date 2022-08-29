@@ -8,6 +8,7 @@ class SpringBootJpaApplicationTests {
 
 	@Test
 	void contextLoads() {
+		System.out.println("Test SpringBoot");
 	}
 
 }
