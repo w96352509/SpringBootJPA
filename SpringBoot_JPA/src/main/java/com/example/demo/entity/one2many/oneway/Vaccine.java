@@ -1,22 +1,15 @@
-package com.example.demo.entity.one2many;
+package com.example.demo.entity.one2many.oneway;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-// 單向 1 對 多
 @Entity
-@Table(name = "infect")
-public class Infect { // 傳染病
+@Table(name = "vaccine")
+public class Vaccine { // 疫苗
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +18,9 @@ public class Infect { // 傳染病
 	@Column(nullable = false, length = 50)
 	private String name;
 	
-	@OneToMany(cascade = CascadeType.PERSIST) // 一對多 + 聯集新增
-	@JoinColumn(name = "infect_id")
-	private Set<Vaccine> vaccines = new LinkedHashSet<>();
-
+	@Column(columnDefinition = "int default 1")
+	private Integer count; // 預設要打 1 濟
+	
 	public Long getId() {
 		return id;
 	}
@@ -45,12 +37,12 @@ public class Infect { // 傳染病
 		this.name = name;
 	}
 
-	public Set<Vaccine> getVaccines() {
-		return vaccines;
+	public Integer getCount() {
+		return count;
 	}
 
-	public void setVaccines(Set<Vaccine> vaccines) {
-		this.vaccines = vaccines;
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 	
 	
