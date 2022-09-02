@@ -1,5 +1,6 @@
-package com.example.demo.entity.one2many.twoway;
+package com.example.demo.entity.many2one.oneway;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,26 +9,30 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="menu_item")
-public class MenuItem {
-
+@Table(name = "orders")
+public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column
+	@Column(length = 50, nullable = true)
 	private String name;
 	
-	@Column
-	private Integer price;
+	@ManyToOne(fetch = FetchType.LAZY , cascade = CascadeType.MERGE)
+	@JoinColumn(name = "customer_id")
+	private Customer customer;
+
+	public Order() {
+		
+	}
 	
-	// 雙向多對一 預設 EAGER
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "group_id" , referencedColumnName = "id")
-	private MenuGroup menuGroup;
+	public Order(String name) {
+		this.name = name;
+	}
 
 	public Long getId() {
 		return id;
@@ -45,22 +50,13 @@ public class MenuItem {
 		this.name = name;
 	}
 
-	public Integer getPrice() {
-		return price;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setPrice(Integer price) {
-		this.price = price;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
-
-	public MenuGroup getMenuGroup() {
-		return menuGroup;
-	}
-
-	public void setMenuGroup(MenuGroup menuGroup) {
-		this.menuGroup = menuGroup;
-	}
-	
 	
 	
 }

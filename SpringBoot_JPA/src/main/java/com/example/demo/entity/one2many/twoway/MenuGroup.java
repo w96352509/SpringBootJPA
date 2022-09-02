@@ -3,8 +3,10 @@ package com.example.demo.entity.one2many.twoway;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +27,7 @@ public class MenuGroup {
 	
 	// 雙向 : 1對多
 	// 單方必須使用 mappedBy 來放棄維護關聯 , 如此不用 @joinColumn
-	@OneToMany(mappedBy = "menuGroup")
+	@OneToMany(mappedBy = "menuGroup", cascade = CascadeType.PERSIST , fetch = FetchType.EAGER)
 	private Set<MenuItem> items = new LinkedHashSet<>();
 
 	public Long getId() {

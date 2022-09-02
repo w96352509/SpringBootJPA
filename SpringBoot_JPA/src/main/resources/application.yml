@@ -24,5 +24,6 @@ spring:
       hibernate:
         # 8D 版本才可正常運行  
         dialect: org.hibernate.dialect.MySQL8Dialect
+        # 支援 Lazy 使用
         enable_lazy_load_no_trans: true
         format_sql: true
